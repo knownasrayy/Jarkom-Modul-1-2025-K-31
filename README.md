@@ -17,7 +17,7 @@
 ## Soal Nomor 1
 Untuk mempersiapkan pembuatan entitas selain mereka, Eru yang berperan sebagai Router membuat dua Switch/Gateway. Dimana Switch 1 akan menuju ke dua Ainur yaitu Melkor dan Manwe. Sedangkan Switch 2 akan menuju ke dua Ainur lainnya yaitu Varda dan Ulmo. Keempat Ainur tersebut diberi perintah oleh Eru untuk menjadi Client.
 
-# Keterangan Fungsi Setiap Komponen
+## Keterangan Fungsi Setiap Komponen
 Eru (Router)
 Fungsi Utama: Eru bertindak sebagai Router. Posisinya berada di tengah, menghubungkan dua jaringan lokal yang berbeda (jaringan Switch1 dan jaringan Switch2) dengan jaringan luar (NAT1).
 
@@ -103,6 +103,9 @@ iface eth0 inet static
 	netmask 255.255.255.0
 	gateway 10.79.2.1
 ```
+
+## Soal Nomor 2
+Karena menurut Eru pada saat itu Arda (Bumi) masih terisolasi dengan dunia luar, maka buat agar Eru dapat tersambung ke internet.
 
 
 
