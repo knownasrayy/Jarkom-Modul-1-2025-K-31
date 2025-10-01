@@ -35,3 +35,4 @@ ftp 10.79.1.1
 cd shared
 get Kitab_Penciptaan.zip   # harus berhasil
 put Kitab_Penciptaan.zip   # harus gagal (read-only)
+
