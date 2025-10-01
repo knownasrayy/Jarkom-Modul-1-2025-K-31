@@ -122,5 +122,8 @@ Inilah yang membuat seluruh jaringan internal bisa mengakses internet hanya mela
 
 
 
+## Soal Nomor 3
+Karena menurut Eru pada saat itu Arda (Bumi) masih terisolasi dengan dunia luar, maka buat agar Eru dapat tersambung ke internet.
 
+![Alt text](Assets/Screenshot_58.png)
 
