@@ -21,8 +21,8 @@ ss -tlnp | grep :80
 
 Sebelum
 
-![Alt text](Assets/Screenshot_94.png)
+![Alt text](../Assets/Screenshot_94.png)
 
 Sesudah
 
-![Alt text](Assets/Screenshot_95.png)
+![Alt text](../Assets/Screenshot_95.png)
