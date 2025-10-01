@@ -125,5 +125,14 @@ Inilah yang membuat seluruh jaringan internal bisa mengakses internet hanya mela
 ## Soal Nomor 3
 Karena menurut Eru pada saat itu Arda (Bumi) masih terisolasi dengan dunia luar, maka buat agar Eru dapat tersambung ke internet.
 
+1. Validasi menggunakan ip a untuk mengecek apakah eru itu sudah tersambung ke internet dan juga routingnya.
 ![Alt text](Assets/Screenshot_58.png)
+
+Eru sebagai Router: Terlihat jelas Eru memiliki banyak antarmuka jaringan (network interface), yaitu eth0, eth1, dan eth2, yang masing-masing terhubung ke jaringan yang berbeda.
+
+eth0 (IP 192.168.122.196/24): Ini adalah antarmuka yang terhubung ke jaringan luar (Internet).
+
+eth1 (IP 10.79.1.1/24): Ini adalah gateway untuk jaringan pertama (tempat Melkor & Manwe berada).
+
+eth2 (IP 10.79.2.1/24): Ini adalah gateway untuk jaringan kedua (tempat Varda & Ulmo berada).
 
