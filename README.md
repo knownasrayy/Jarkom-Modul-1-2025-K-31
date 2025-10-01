@@ -108,6 +108,16 @@ iface eth0 inet static
 Karena menurut Eru pada saat itu Arda (Bumi) masih terisolasi dengan dunia luar, maka buat agar Eru dapat tersambung ke internet.
 
 
+### Config Eru (DNS Master)
+
+1. Memberikan Akses Internet pada Router (Eru)
+
+Perintah ```sh iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE -s 10.79.0.0/16``` adalah kunci utamanya. Disini kami menggunakan ip config yang sudah dijadikan ketentuan.
+Fungsi dari config ini adalah untuk melakukan NAT (Network Address Translation). Secara sederhana, Eru akan "menyamarkan" semua permintaan internet dari para client (Melkor, Varda, dll.) 
+seolah-olah permintaan itu berasal dari Eru sendiri. Ketika balasan dari internet datang, Eru akan tahu harus meneruskannya ke client yang mana. 
+Inilah yang membuat seluruh jaringan internal bisa mengakses internet hanya melalui satu gerbang (Eru).
+
+
 
 
 
