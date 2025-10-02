@@ -316,6 +316,7 @@ CWD → berpindah ke direktori (cd shared).
 TYPE I → set mode transfer binary (karena file zip).
 STOR cuaca.zip → perintah utama untuk meng-upload file ke server.
 QUIT → keluar dari sesi FTP.
+```
 9. Verifikasi hasil upload di node Eru:
 ```
 ls -l /home/ainur/shared
@@ -363,8 +364,11 @@ USER → kirim username.
 PASS → kirim password.
 CWD → pindah ke direktori shared.
 RETR Kitab_Penciptaan.zip → download file dari server.
-Verifikasi di node Eru bahwa file ada di folder shared:
+```
+6. Verifikasi di node Eru bahwa file ada di folder shared:
+```
 ls -l /home/ainur/shared/Kitab_Penciptaan.zip
+```
 6. Ubah permission folder dan file agar read-only (tidak bisa upload/menulis):
 ```
 chmod 555 /home/ainur/shared
