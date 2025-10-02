@@ -136,3 +136,70 @@ eth1 (IP 10.79.1.1/24): Ini adalah gateway untuk jaringan pertama (tempat Melkor
 
 eth2 (IP 10.79.2.1/24): Ini adalah gateway untuk jaringan kedua (tempat Varda & Ulmo berada).
 
+
+
+## Soal Nomor 4
+
+
+
+## Soal Nomor 5
+
+
+
+## Soal Nomor 6
+
+
+
+## Soal Nomor 7
+
+
+
+## Soal Nomor 8
+
+
+
+## Soal Nomor 9
+
+
+
+## Soal Nomor 10
+
+
+
+## Soal Nomor 11
+
+
+
+## Soal Nomor 12
+
+
+
+## Soal Nomor 13
+
+
+
+## Soal Nomor 14
+
+
+
+## Soal Nomor 15
+
+
+
+## Soal Nomor 16
+
+
+
+## Soal Nomor 17
+
+
+
+## Soal Nomor 18
+
+
+
+## Soal Nomor 19
+
+
+
+## Soal Nomor 20
