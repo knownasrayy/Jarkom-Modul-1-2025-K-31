@@ -147,35 +147,67 @@ eth2 (IP 10.79.2.1/24): Ini adalah gateway untuk jaringan kedua (tempat Varda & 
 
 
 ## Soal Nomor 6
-
+Setelah semua Ainur terhubung ke internet, Melkor mencoba menyusup ke dalam
+komunikasi antara Manwe dan Eru. Jalankan file berikut (traffic.zip) lalu lakukan packet
+sniffing menggunakan Wireshark pada koneksi antara Manwe dan Eru, lalu terapkan
+display filter untuk menampilkan semua paket yang berasal dari atau menuju ke IP
+Address Manwe. Simpan hasil capture tersebut sebagai bukti.
 
 
 ## Soal Nomor 7
-
+Untuk meningkatkan keamanan, Eru memutuskan untuk membuat sebuah FTP Server
+di node miliknya. Lakukan konfigurasi FTP Server pada node Eru. Buat dua user baru:
+ainur dengan hak akses write&read dan melkor tanpa hak akses sama sekali ke
+direktori shared. Buktikan hasil tersebut dengan membuat file teks sederhana kemudian
+akses file tersebut menggunakan kedua user.
 
 
 ## Soal Nomor 8
-
+Ulmo, sebagai penjaga perairan, perlu mengirimkan data ramalan cuaca ke node Eru.
+Lakukan koneksi sebagai client dari node Ulmo ke FTP Server Eru menggunakan user
+ainur. Upload sebuah file berikut (link file). Analisis proses ini menggunakan Wireshark
+dan identifikasi perintah FTP yang digunakan untuk proses upload.
 
 
 ## Soal Nomor 9
-
+Eru ingin membagikan "Kitab Penciptaan" di (link file) kepada Manwe. Dari FTP Server
+Eru, download file tersebut ke node Manwe. Karena Eru merasa Kitab tersebut sangat
+penting maka ia mengubah akses user ainur menjadi read-only. Gunakan Wireshark
+untuk memonitor koneksi, identifikasi perintah FTP yang digunakan, dan uji akses user
+ainur.
 
 
 ## Soal Nomor 10
-
+Melkor yang marah karena tidak diberi akses, mencoba melakukan serangan dengan
+mengirimkan banyak sekali request ke server Eru. Gunakan command ping dari node
+Melkor ke node Eru dengan jumlah paket yang tidak biasa (spam ping misalnya 100
+paket). Amati hasilnya, apakah ada packet loss? Catat average round trip time untuk
+melihat apakah serangan tersebut mempengaruhi kinerja Eru.
 
 
 ## Soal Nomor 11
-
+Sebelum era koneksi aman, Eru sering menyelinap masuk ke wilayah Melkor. Eru perlu
+masuk ke node tersebut untuk memeriksa konfigurasi, namun ia tahu Melkor mungkin
+sedang memantau jaringan. Buktikan kelemahan protokol Telnet dengan membuat akun
+dan password baru di node Melkor kemudian menangkap sesi login Eru ke node
+Melkor menggunakan Wireshark. Tunjukkan bagaimana username dan password dapat
+terlihat sebagai plain text.
 
 
 ## Soal Nomor 12
-
+ Eru mencurigai Melkor menjalankan beberapa layanan terlarang di node-nya. Lakukan
+pemindaian port sederhana dari node Eru ke node Melkor menggunakan Netcat (nc)
+untuk memeriksa port 21, 80, dalam keadaan terbuka dan port rahasia 666 dalam
+keadaan tertutup.
 
 
 ## Soal Nomor 13
-
+Setelah insiden penyadapan Telnet, Eru memerintahkan semua koneksi administratif
+harus menggunakan SSH (Secure Shell) untuk mengamankan jaringan. Lakukan
+koneksi SSH dari node Varda ke Eru. Tangkap sesi tersebut menggunakan Wireshark.
+Analisis dan jelaskan mengapa username dan password tidak dapat dilihat seperti pada
+sesi Telnet. Tunjukkan paket-paket terenkripsi dalam hasil capture sebagai bukti
+keamanan SSH.
 
 
 ## Soal Nomor 14
