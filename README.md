@@ -279,6 +279,48 @@ ainur. Upload sebuah file berikut (link file). Analisis proses ini menggunakan W
 dan identifikasi perintah FTP yang digunakan untuk proses upload.
 #### Tujuan
 #### Step by step
+1. Di console node Ulmo, download file cuaca.zip:
+```
+wget --no-check-certificate 'https://drive.google.com/uc?export=download&id=11ra_yTV_adsPIXeIPMSt0vrxCBZu0r33' -O cuaca.zip
+ls -l cuaca.zip
+```
+2. Install FTP client di Ulmo:
+```
+apt update && apt install -y inetutils-ftp
+```
+3. Mulai proses capture di Wireshark pada line Ulmo sebelum login ke FTP.
+4. Login ke FTP Server Eru menggunakan user ainur:
+```
+ftp 10.79.2.3
+# Masukkan username: ainur
+# Masukkan password: [password ainur]
+```
+5. Cek isi directory setelah login:
+```
+ls
+cd shared
+lcd .
+```
+6. Upload file cuaca.zip ke FTP Server:
+```
+put cuaca.zip
+bye
+```
+7. Analisis dengan Wiresharkg unakan display filter:
+```ftp```
+8. Identifikasi perintah FTP yang muncul pada proses upload, yaitu:
+```
+USER → untuk login dengan username.
+PASS → untuk otentikasi password.
+CWD → berpindah ke direktori (cd shared).
+TYPE I → set mode transfer binary (karena file zip).
+STOR cuaca.zip → perintah utama untuk meng-upload file ke server.
+QUIT → keluar dari sesi FTP.
+9. Verifikasi hasil upload di node Eru:
+```
+ls -l /home/ainur/shared
+— Harus ada file cuaca.zip dengan owner user ainur.
+```
 
 ## Soal Nomor 9
 #### Soal
@@ -288,7 +330,53 @@ penting maka ia mengubah akses user ainur menjadi read-only. Gunakan Wireshark
 untuk memonitor koneksi, identifikasi perintah FTP yang digunakan, dan uji akses user
 ainur.
 #### Tujuan
+1. Membuktikan bahwa file Kitab Penciptaan dapat dibagikan dari FTP Server Eru dan diunduh oleh Manwe menggunakan akun ainur.
+2. Memonitor koneksi FTP menggunakan Wireshark dan mengidentifikasi perintah FTP yang digunakan, khususnya USER, PASS, CWD, RETR (download), dan STOR (upload).
+3. Mengubah hak akses direktori shared milik ainur menjadi read-only untuk memastikan user ainur hanya bisa membaca/download file tetapi tidak bisa meng-upload file ke server.
 #### Step by step
+1. Di node Eru — download Kitab Penciptaan ke server:
+```
+wget --no-check-certificate 'https://drive.google.com/uc?export=download&id=11ua2KgBu3MnHEIjhBnzqqv2RMEiJsILY' -O /root/Kitab_Penciptaan.zip
+```
+2. Pindahkan file ke folder shared milik ainur dan atur kepemilikan + permission awal:
+```
+cp /root/Kitab_Penciptaan.zip /home/ainur/shared/
+chown ainur:ainur /home/ainur/shared/Kitab_Penciptaan.zip
+chmod 644 /home/ainur/shared/Kitab_Penciptaan.zip
+```
+3. Di node Manwe — install FTP client:
+```
+apt update && apt install -y inetutils-ftp
+```
+4. Mulai Wireshark di Manwe untuk capture trafik FTP dengan display filter ftp
+5. Login ke FTP Server Eru sebagai user ainur dan download file:
+```
+ftp 10.79.1.1
+cd shared
+get Kitab_Penciptaan.zip
+bye
+```
+Notes :
+```
+Perintah FTP yang muncul:
+USER → kirim username.
+PASS → kirim password.
+CWD → pindah ke direktori shared.
+RETR Kitab_Penciptaan.zip → download file dari server.
+Verifikasi di node Eru bahwa file ada di folder shared:
+ls -l /home/ainur/shared/Kitab_Penciptaan.zip
+6. Ubah permission folder dan file agar read-only (tidak bisa upload/menulis):
+```
+chmod 555 /home/ainur/shared
+chmod 444 /home/ainur/shared/Kitab_Penciptaan.zip
+```
+7. Di node Manwe — uji kembali login FTP dengan user ainur:
+```
+ftp 10.79.1.1
+cd shared
+get Kitab_Penciptaan.zip   # harus berhasil (read-only masih bisa download)
+put Kitab_Penciptaan.zip   # harus gagal (karena tidak ada write permission)
+```
 
 ## Soal Nomor 10
 #### Soal
@@ -298,7 +386,43 @@ Melkor ke node Eru dengan jumlah paket yang tidak biasa (spam ping misalnya 100
 paket). Amati hasilnya, apakah ada packet loss? Catat average round trip time untuk
 melihat apakah serangan tersebut mempengaruhi kinerja Eru.
 #### Tujuan
+1. Menguji efek serangan sederhana berupa ICMP flood (ping spam) dari node Melkor ke node Eru.
+2. Menganalisis hasil ping untuk melihat apakah terjadi packet loss dan berapa average RTT (Round Trip Time) sebelum dan saat serangan.
+3. Membuktikan apakah serangan tersebut mempengaruhi kinerja jaringan/server Eru.
+4. Menggunakan Wireshark untuk memonitor paket ICMP yang dikirim.
 #### Step by step
+1. Di node Melkor, cek alamat IP terlebih dahulu:
+```
+ip -4 addr show
+```
+2. Di Wireshark, set display filter untuk memonitor paket ICMP:
+```
+icmp
+```
+3. Lakukan baseline ping (10 paket) ke Eru dan simpan hasilnya:
+```
+ERU_IP=10.79.1.1
+ping -c 10 $ERU_IP | tee baseline_ping.txt
+tail -n2 baseline_ping.txt
+```
+4. Catat hasil baseline:
+- Persentase packet loss (baris ringkasan).
+- Nilai average RTT (ambil nilai kedua dari rtt min/avg/max/mdev).
+```
+awk -F'/' '/rtt/ {print "avg RTT=" $5 " ms"}' baseline_ping.txt
+grep -oP '\d+(?=% packet loss)' baseline_ping.txt | head -n1 | xargs -I{} echo "packet loss={} %"
+```
+5. Lakukan serangan spam ping (100 paket) ke server Eru:
+```
+ping -c 100 $ERU_IP | tee ping_100.txt
+tail -n2 ping_100.txt
+```
+6. Analisis hasil ping spam:
+- Packet loss:
+```grep 'packet loss' ping_100.txt```
+- Average RTT:
+```awk -F'/' '/rtt/ {print "avg RTT=" $5 " ms"}' ping_100.txt```
+7. Periksa di Wireshark apakah terlihat banjir paket ICMP dari node Melkor ke Eru.
 
 ## Soal Nomor 11
 #### Soal
@@ -308,9 +432,9 @@ sedang memantau jaringan. Buktikan kelemahan protokol Telnet dengan membuat akun
 dan password baru di node Melkor kemudian menangkap sesi login Eru ke node
 Melkor menggunakan Wireshark. Tunjukkan bagaimana username dan password dapat
 terlihat sebagai plain text.
-#### Tujuan
-#### Step by step
-
+### Tujuan
+### Step by step
+  
 ## Soal Nomor 12
 #### Soal
  Eru mencurigai Melkor menjalankan beberapa layanan terlarang di node-nya. Lakukan
