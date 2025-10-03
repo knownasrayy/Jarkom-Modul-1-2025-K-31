@@ -548,23 +548,40 @@ keamanan SSH.
 3. Menangkap sesi SSH dari node Varda ke Eru menggunakan Wireshark dan menunjukkan paket-paket terenkripsi sebagai bukti keamanan.
 #### Step by step
 1. Di node Eru — update dan install OpenSSH server
-```apt update && apt install -y openssh-server```
-2. Enable SSH service saat boot
-```update-rc.d ssh enable```
-3. Start SSH service
-```service ssh start```
-4. Cek status SSH
-```service ssh status```
-5. Pastikan port 22 listening
-```ss -tlnp | grep :22```
-6. Cek proses sshd
-```ps aux | grep [s]shd```
-7. Set/ubah password root
-```passwd root```
-8. Cek konfigurasi penting SSH
-```grep -E "PermitRootLogin|PasswordAuthentication|UsePAM" /etc/ssh/sshd_config```
-9. Edit konfigurasi SSH untuk mengizinkan root/password auth
-```nano /etc/ssh/sshd_config
+```
+apt update && apt install -y openssh-server
+```
+3. Enable SSH service saat boot
+```
+update-rc.d ssh enable
+```
+5. Start SSH service
+```
+service ssh start
+```
+7. Cek status SSH
+```
+service ssh status
+```
+9. Pastikan port 22 listening
+```
+ss -tlnp | grep :22
+```
+11. Cek proses sshd
+```
+ps aux | grep [s]shd
+```
+13. Set/ubah password root
+```
+passwd root
+```
+15. Cek konfigurasi penting SSH
+```
+grep -E "PermitRootLogin|PasswordAuthentication|UsePAM" /etc/ssh/sshd_config
+```
+17. Edit konfigurasi SSH untuk mengizinkan root/password auth
+```
+nano /etc/ssh/sshd_config
 — Pastikan (jika diperlukan) baris berikut ada/di-set:
 
 PermitRootLogin yes
@@ -572,9 +589,11 @@ PasswordAuthentication yes
 UsePAM yes
 ```
 10. Restart sshd agar konfigurasi baru berlaku
-```pkill sshd
+```
+pkill sshd
 /usr/sbin/sshd &
-ps aux | grep [s]shd```
+ps aux | grep [s]shd
+```
 11. Di node Varda — test konektivitas ke Eru
 ```
 ping -c 3 10.79.1.1
@@ -595,9 +614,12 @@ ls -la /root
 uname -a
 ```
 18. Analisis capture di Wireshark
-```Pastikan filter tcp.port == 22 aktif.```
+```
+Pastikan filter tcp.port == 22 aktif.
+```
 19. Pilih salah satu paket SSH → klik kanan → Follow → TCP Stream.
-20. Yang harus terlihat: isi stream berupa data terenkripsi (tidak ada username/password dalam bentuk plain text). Paket-paket akan muncul sebagai payload terenkripsi (garbled/teracak), membuktikan SSH mengenkripsi sesi.
+20. Yang harus terlihat: isi stream berupa data terenkripsi (tidak ada username/password dalam bentuk plain text).
+Paket-paket akan muncul sebagai payload terenkripsi (garbled/teracak), membuktikan SSH mengenkripsi sesi.
 
 ## Soal Nomor 14
 Setelah gagal mengakses FTP, Melkor melancarkan serangan brute force terhadap  Manwe. Analisis file capture yang disediakan dan identifikasi upaya brute force Melkor. 
