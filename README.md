@@ -285,7 +285,8 @@ dan identifikasi perintah FTP yang digunakan untuk proses upload.
 PASS (untuk kirim password)
 STOR (untuk upload file ke server)
 TYPE I (set binary mode saat transfer file)
-PORT / PASV (negosiasi mode transfer data)```
+PORT / PASV (negosiasi mode transfer data)
+```
 4. Menunjukkan kelemahan FTP klasik yaitu data (username, password, perintah, bahkan isi file) dikirim tanpa enkripsi (plaintext), sehingga bisa dengan mudah dilihat di Wireshark.
 #### Step by step
 1. Di console node Ulmo, download file cuaca.zip:
