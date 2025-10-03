@@ -436,8 +436,46 @@ sedang memantau jaringan. Buktikan kelemahan protokol Telnet dengan membuat akun
 dan password baru di node Melkor kemudian menangkap sesi login Eru ke node
 Melkor menggunakan Wireshark. Tunjukkan bagaimana username dan password dapat
 terlihat sebagai plain text.
-### Tujuan
-### Step by step
+#### Tujuan
+1. Membuktikan kelemahan protokol Telnet — Telnet mentransmisikan data tanpa enkripsi, sehingga semua informasi termasuk username dan password bisa disadap di jaringan.
+2. Menunjukkan risiko keamanan login menggunakan Telnet — ketika Eru login ke node Melkor, kredensial (user buktiuser dan password) dapat terlihat sebagai plain text di Wireshark.
+3. Memberikan pemahaman mengapa Telnet tidak lagi digunakan di era modern — kelemahan ini alasan protokol Telnet sudah ditinggalkan dan digantikan oleh protokol aman seperti SSH.
+4. Mendemonstrasikan teknik sniffing sederhana — yaitu menangkap lalu lintas Telnet dengan Wireshark dan menggunakan fitur Follow TCP Stream untuk melihat isi data.
+#### Step by step
+1. Di node Melkor: buat user baru
+```adduser buktiuser```
+2. Di node Melkor: install telnet daemon
+```apt install -y inetutils-telnetd```
+3. Di node Eru: install telnet client
+```apt update && apt install -y telnet```
+4. Di node Melkor: edit konfigurasi inetd untuk mengaktifkan telnet
+```
+nano /etc/inetd.conf
+
+— Hapus komentar (#off#) pada baris:
+#<off># telnet  stream  tcp     nowait  root    /usr/sbin/tcpd  /usr/sbin/telnetd
+sehingga baris telnet aktif.
+```
+5. Restart service inetd di Melkor
+```
+service inetutils-inetd restart
+```
+6. Verifikasi telnet listening di Melkor (port 23)
+```
+ss -tlnp | grep :23 || true
+```
+7. Start capture di Wireshark (capture interface yang melihat traffic antara Eru ↔ Melkor).
+— Set display filter Wireshark menjadi : tcp.port == 23
+8. Dari node Eru: buka koneksi Telnet ke Melkor
+```
+telnet 10.79.1.2 23
+— Login menggunakan user buktiuser (masukkan password yang dibuat pada langkah 1).
+```
+9. Di Wireshark: identifikasi paket Telnet
+— Pastikan filter telnet atau tcp.port == 23 aktif.
+— Klik kanan pada salah satu paket TELNET → pilih Follow → TCP Stream.
+Bukti kelemahan Telnet
+— Pada jendela Follow TCP Stream akan terlihat username dan password yang diketik di sesi Telnet dalam bentuk plain text, membuktikan Telnet tidak terenkripsi.
   
 ## Soal Nomor 12
 #### Soal
@@ -446,7 +484,45 @@ pemindaian port sederhana dari node Eru ke node Melkor menggunakan Netcat (nc)
 untuk memeriksa port 21, 80, dalam keadaan terbuka dan port rahasia 666 dalam
 keadaan tertutup.
 #### Tujuan
+1. Melakukan pemindaian port sederhana dari node Eru ke node Melkor menggunakan Netcat.
+2. Memeriksa bahwa port 21 dan 80 berstatus terbuka, dan port rahasia 666 berstatus tertutup.
 #### Step by step
+1. Di Eru — install netcat
+```
+apt update && apt install -y netcat-openbsd
+```
+2. Set variabel IP Melkor dan lakukan pemindaian port
+```
+MELKOR=10.79.1.2
+nc -zv $MELKOR 21
+nc -zv $MELKOR 80
+nc -zv $MELKOR 666
+```
+###### Hasil pemindaian sebelum
+
+3. Di Melkor — pastikan service FTP berjalan pada port 21
+```
+apt update && apt install -y vsftpd
+service vsftpd start
+# cek
+ss -tlnp | grep :21
+```
+4. Di Melkor — pastikan service HTTP berjalan pada port 80
+```
+apt install -y apache2
+service apache2 start
+# cek
+ss -tlnp | grep :80
+```
+5. Set variabel IP Melkor dan lakukan pemindaian port ulang
+```
+MELKOR=10.79.1.2
+nc -zv $MELKOR 21
+nc -zv $MELKOR 80
+nc -zv $MELKOR 666
+```
+###### Hasil pemindaian sesudah
+
 
 ## Soal Nomor 13
 #### Soal
@@ -457,7 +533,61 @@ Analisis dan jelaskan mengapa username dan password tidak dapat dilihat seperti 
 sesi Telnet. Tunjukkan paket-paket terenkripsi dalam hasil capture sebagai bukti
 keamanan SSH.
 #### Tujuan
+1. Mengamankan koneksi administratif dengan mengganti Telnet ke SSH (Secure Shell).
+2. Menunjukkan bahwa koneksi SSH terenkripsi sehingga username/password tidak terlihat sebagai plain text pada capture Wireshark.
+3. Menangkap sesi SSH dari node Varda ke Eru menggunakan Wireshark dan menunjukkan paket-paket terenkripsi sebagai bukti keamanan.
 #### Step by step
+1. Di node Eru — update dan install OpenSSH server
+```apt update && apt install -y openssh-server```
+2. Enable SSH service saat boot
+```update-rc.d ssh enable```
+3. Start SSH service
+```service ssh start```
+4. Cek status SSH
+```service ssh status```
+5. Pastikan port 22 listening
+```ss -tlnp | grep :22```
+6. Cek proses sshd
+```ps aux | grep [s]shd```
+7. Set/ubah password root
+```passwd root```
+8. Cek konfigurasi penting SSH
+```grep -E "PermitRootLogin|PasswordAuthentication|UsePAM" /etc/ssh/sshd_config```
+9. Edit konfigurasi SSH untuk mengizinkan root/password auth
+```nano /etc/ssh/sshd_config
+— Pastikan (jika diperlukan) baris berikut ada/di-set:
+
+PermitRootLogin yes
+PasswordAuthentication yes
+UsePAM yes
+```
+10. Restart sshd agar konfigurasi baru berlaku
+```pkill sshd
+/usr/sbin/sshd &
+ps aux | grep [s]shd```
+11. Di node Varda — test konektivitas ke Eru
+```
+ping -c 3 10.79.1.1
+(Jika muncul warning host key changed) Hapus host lama
+ssh-keygen -f "/root/.ssh/known_hosts" -R "10.79.1.1"
+```
+12. Mulai capture Wireshark pada interface yang melihat trafik Varda↔Eru.
+13. Gunakan display filter untuk memudahkan analisis:
+```tcp.port == 22```
+14. Dari Varda — login SSH ke Eru
+```ssh root@10.79.1.1```
+15. Jika muncul fingerprint baru, ketik yes.
+16. Masukkan password root Eru saat diminta.
+17. Verifikasi koneksi dan hak akses setelah login
+```
+whoami
+ls -la /root
+uname -a
+```
+18. Analisis capture di Wireshark
+```Pastikan filter tcp.port == 22 aktif.```
+19. Pilih salah satu paket SSH → klik kanan → Follow → TCP Stream.
+20. Yang harus terlihat: isi stream berupa data terenkripsi (tidak ada username/password dalam bentuk plain text). Paket-paket akan muncul sebagai payload terenkripsi (garbled/teracak), membuktikan SSH mengenkripsi sesi.
 
 ## Soal Nomor 14
 Setelah gagal mengakses FTP, Melkor melancarkan serangan brute force terhadap  Manwe. Analisis file capture yang disediakan dan identifikasi upaya brute force Melkor. 
