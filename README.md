@@ -278,6 +278,15 @@ Lakukan koneksi sebagai client dari node Ulmo ke FTP Server Eru menggunakan user
 ainur. Upload sebuah file berikut (link file). Analisis proses ini menggunakan Wireshark
 dan identifikasi perintah FTP yang digunakan untuk proses upload.
 #### Tujuan
+1. Melatih penggunaan FTP (File Transfer Protocol) untuk mengirim file dari client (Ulmo) ke server (Eru).
+2. Membuktikan bagaimana proses upload file melalui FTP berlangsung secara teknis.
+3. Menangkap komunikasi FTP dengan Wireshark untuk mengidentifikasi perintah-perintah FTP yang digunakan saat upload, misalnya:
+```USER (untuk kirim username)
+PASS (untuk kirim password)
+STOR (untuk upload file ke server)
+TYPE I (set binary mode saat transfer file)
+PORT / PASV (negosiasi mode transfer data)```
+4. Menunjukkan kelemahan FTP klasik yaitu data (username, password, perintah, bahkan isi file) dikirim tanpa enkripsi (plaintext), sehingga bisa dengan mudah dilihat di Wireshark.
 #### Step by step
 1. Di console node Ulmo, download file cuaca.zip:
 ```
