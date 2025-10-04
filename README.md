@@ -685,14 +685,48 @@ Manwe membuat halaman web di node-nya yang menampilkan gambar cincin agung. Melk
 Karena rencana Melkor yang terus gagal, ia akhirnya berhenti sejenak untuk berpikir. Pada saat berpikir ia akhirnya memutuskan untuk membuat rencana jahat lainnya dengan meletakkan file berbahaya lagi tetapi dengan metode yang berbeda. Gagalkan lagi rencana Melkor dengan mengidentifikasi file capture yang disediakan agar dunia tetap aman.
 (link file) nc 10.15.43.32 3405
 
-![Alt text](Assets/Soal_17/Screenshot_79.png)
+![Alt text](Assets/Soal_18/Screenshot_76.png)
+
+![Alt text](Assets/Soal_18/Screenshot_77.png)
+
+![Alt text](Assets/Soal_18/Screenshot_78.png)
+
+![Alt text](Assets/Soal_18/Screenshot_79.png)
+
+![Alt text](Assets/Soal_18/Screenshot_80.png)
+
+![Alt text](Assets/Soal_18/Screenshot_81.png)
+
+![Alt text](Assets/Soal_18/Screenshot_82.png)
 
 
 ## Soal Nomor 19
 Manwe mengirimkan email berisi surat cinta kepada Varda melalui koneksi yang tidak terenkripsi. Melihat hal itu Melkor sipaling jahat langsung melancarkan aksinya yaitu meneror Varda dengan email yang disamarkan. Analisis file capture jaringan dan gagalkan lagi rencana busuk Melkor.
 (link file) nc 10.15.43.32 3406
 
+![Alt text](Assets/Soal_19/Screenshot_83.png)
+
+![Alt text](Assets/Soal_19/Screenshot_84.png)
+
+![Alt text](Assets/Soal_19/Screenshot_85.png)
+
+![Alt text](Assets/Soal_19/Screenshot_86.png)
+
+![Alt text](Assets/Soal_19/Screenshot_87.png)
+
 
 ## Soal Nomor 20
 Untuk yang terakhir kalinya, rencana besar Melkor yaitu menanamkan sebuah file berbahaya kemudian menyembunyikannya agar tidak terlihat oleh Eru. Tetapi Manwë yang sudah merasakan adanya niat jahat dari Melkor, ia menyisipkan bantuan untuk mengungkapkan rencana Melkor. Analisis file capture dan identifikasi kegunaan bantuan yang diberikan oleh Manwe untuk menggagalkan rencana jahat Melkor selamanya.
 (link file) nc 10.15.43.32 3407
+
+![Alt text](Assets/Soal_20/Screenshot_88.png)
+
+![Alt text](Assets/Soal_20/Screenshot_89.png)
+
+![Alt text](Assets/Soal_20/Screenshot_90.png)
+
+![Alt text](Assets/Soal_20/Screenshot_91.png)
+
+![Alt text](Assets/Soal_20/Screenshot_92.png)
+
+![Alt text](Assets/Soal_20/Screenshot_93.png)
