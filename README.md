@@ -637,6 +637,10 @@ Setelah gagal mengakses FTP, Melkor melancarkan serangan brute force terhadap  M
 
 ![Alt text](Assets/Soal_14/Screenshot_65.png)
 
+
+![Alt text](Assets/Soal_14/Screenshot_59.png)
+
+
 ## Soal Nomor 15
 Melkor menyusup ke ruang server dan memasang keyboard USB berbahaya pada node Manwe. Buka file capture dan identifikasi pesan atau ketikan (keystrokes) yang berhasil dicuri oleh Melkor untuk menemukan password rahasia.
 (link file) nc 10.15.43.32 3402
