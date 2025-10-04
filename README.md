@@ -650,15 +650,42 @@ Melkor menyusup ke ruang server dan memasang keyboard USB berbahaya pada node Ma
 Melkor semakin murka ia meletakkan file berbahaya di server milik Manwe. Dari file capture yang ada, identifikasi file apa yang diletakkan oleh Melkor.
 (link file) nc 10.15.43.32 3403
 
+![Alt text](Assets/Soal_16/Screenshot_69.png)
+
+![Alt text](Assets/Soal_16/Screenshot_70.png)
+
+![Alt text](Assets/Soal_16/Screenshot_71.png)
+
+![Alt text](Assets/Soal_16/Screenshot_72.png)
+
+![Alt text](Assets/Soal_16/Screenshot_73.png)
+
+![Alt text](Assets/Soal_16/Screenshot_74.png)
+
+
+
 
 ## Soal Nomor 17
 Manwe membuat halaman web di node-nya yang menampilkan gambar cincin agung. Melkor yang melihat web tersebut merasa iri sehingga ia meletakkan file berbahaya agar web tersebut dapat dianggap menyebarkan malware oleh Eru. Analisis file capture untuk menggagalkan rencana Melkor dan menyelamatkan web Manwe.
 (link file) nc 10.15.43.32 3404
 
+![Alt text](Assets/Soal_17/Screenshot_75.png)
+
+![Alt text](Assets/Soal_17/Screenshot_76.png)
+
+![Alt text](Assets/Soal_17/Screenshot_77.png)
+
+![Alt text](Assets/Soal_17/Screenshot_78.png)
+
+![Alt text](Assets/Soal_17/Screenshot_79.png)
+
+
 
 ## Soal Nomor 18
 Karena rencana Melkor yang terus gagal, ia akhirnya berhenti sejenak untuk berpikir. Pada saat berpikir ia akhirnya memutuskan untuk membuat rencana jahat lainnya dengan meletakkan file berbahaya lagi tetapi dengan metode yang berbeda. Gagalkan lagi rencana Melkor dengan mengidentifikasi file capture yang disediakan agar dunia tetap aman.
 (link file) nc 10.15.43.32 3405
+
+![Alt text](Assets/Soal_17/Screenshot_79.png)
 
 
 ## Soal Nomor 19
